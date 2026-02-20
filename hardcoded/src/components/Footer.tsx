@@ -31,7 +31,7 @@ const Footer = () => (
         ))}
       </div>
       <p className="text-xs font-heading tracking-widest uppercase text-muted-foreground">
-        Built with intent.
+      Took time, effort, and several identity crises. A job would justify all three.
       </p>
     </div>
   </footer>
