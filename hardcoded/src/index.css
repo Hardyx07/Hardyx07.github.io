@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ----------------------------------------------------------------------------
+       COLOR SYSTEM (Dark Mode Default)
+       ---------------------------------------------------------------------------- */
+    --background: 240 10% 3.9%;   /* Deep dark background #09090b */
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 6%;           /* Slightly lighter than bg */
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 6%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;          /* High contrast white for primary actions */
+    --primary-foreground: 240 5.9% 10%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+
+    --radius: 0.5rem;
+
+    /* ----------------------------------------------------------------------------
+       TYPOGRAPHY SYSTEM (Fluid with clamp)
+       ---------------------------------------------------------------------------- */
+    /* Mobile: 16px base, Desktop: 18px base */
+    --font-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    
+    /* Scale ratio: 1.25 (Major Third) */
+    --font-xl: clamp(2.44rem, 2.05rem + 1.95vw, 3.81rem); /* H1 */
+    --font-lg: clamp(1.95rem, 1.71rem + 1.22vw, 3.05rem); /* H2 */
+    --font-md: clamp(1.56rem, 1.41rem + 0.76vw, 2.44rem); /* H3 */
+    --font-sm: clamp(1.25rem, 1.16rem + 0.45vw, 1.95rem); /* H4 */
+    
+    --leading-tight: 1.1;
+    --leading-base: 1.5;
+    --leading-loose: 1.65;
+
+    /* ----------------------------------------------------------------------------
+       LAYERING SYSTEM (Strict Z-Index)
+       ---------------------------------------------------------------------------- */
+    --z-negative: -1;
+    --z-base: 0;
+    --z-noise: 10;      /* Static noise overlay */
+    --z-ambient: 20;    /* Ambient background blobs */
+    --z-content: 30;    /* Main interactive content */
+    --z-header: 40;     /* Sticky headers */
+    --z-overlay: 50;    /* Modals/Dialogs */
+    --z-cursor: 999;    /* Custom cursor if used */
+
+    /* ----------------------------------------------------------------------------
+       MOTION SYSTEM (Performance First)
+       ---------------------------------------------------------------------------- */
+    /* Durations */
+    --duration-fast: 200ms;
+    --duration-medium: 400ms;
+    --duration-slow: 700ms;
+    
+    /* Easings */
+    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-elastic: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    
+    /* Re-verify dark mode specific overrides if needed */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    font-size: var(--font-base);
+    line-height: var(--leading-base);
+    overflow-x: hidden;
+    position: relative;
+  }
+  
+  /* Typography mappings */
+  h1, .h1 { font-size: var(--font-xl); line-height: var(--leading-tight); font-weight: 700; letter-spacing: -0.02em; }
+  h2, .h2 { font-size: var(--font-lg); line-height: var(--leading-tight); font-weight: 600; letter-spacing: -0.01em; }
+  h3, .h3 { font-size: var(--font-md); line-height: var(--leading-tight); font-weight: 600; }
+  h4, .h4 { font-size: var(--font-sm); line-height: var(--leading-tight); font-weight: 500; }
+}
+
+@layer utilities {
+  /* ----------------------------------------------------------------------------
+     PERFORMANCE UTILITIES
+     ---------------------------------------------------------------------------- */
+     
+  /* GPU Acceleration enforcement */
+  .gpu-layer {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+  }
+
+  /* No layout shift animations */
+  .no-layout-shift {
+    contain: layout paint;
+  }
+
+  /* ----------------------------------------------------------------------------
+     VISUAL EFFECTS
+     ---------------------------------------------------------------------------- */
+     
+  /* Static Noise Overlay - Performance Optimized (Base64) */
+  .noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: var(--z-noise);
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3C viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    /* No animation on noise to save GPU */
+  }
+
+  /* Glassmorphism optimized */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px); /* Keep blur low for performance */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  /* Smooth Text Reveal Helper Class */
+  .reveal-text {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--duration-medium) var(--ease-out-quint), 
+                transform var(--duration-medium) var(--ease-out-quint);
+  }
+  
+  .reveal-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   REDUCED MOTION
+   ---------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
