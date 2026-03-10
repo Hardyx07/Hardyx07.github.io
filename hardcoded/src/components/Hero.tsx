@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { KineticText } from "@/components/ui/KineticText";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, FileText } from "lucide-react";
 import TechMarquee from "./TechMarquee";
 
 const Hero = () => (
@@ -16,7 +16,7 @@ const Hero = () => (
             className="text-xl md:text-2xl font-medium tracking-widest text-primary uppercase"
             duration={0.8}
           >
-            Full-Stack Developer & System Thinker
+            AI Full-Stack Developer & System Thinker
           </KineticText>
         </div>
 
@@ -48,9 +48,9 @@ const Hero = () => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          Crafting scalable, high-performance web applications with a focus on
-          <span className="text-foreground font-semibold"> architectural precision</span> and
-          <span className="text-foreground font-semibold"> fluid user experiences</span>.
+          Bridging the gap between
+          <span className="text-foreground font-semibold"> AI capabilities</span> and
+          <span className="text-foreground font-semibold"> real-world impact</span>.
         </motion.p>
 
         {/* Buttons — No magnetic effect, clean hover */}
@@ -67,8 +67,11 @@ const Hero = () => (
             View Projects <ArrowRight className="w-4 h-4" />
           </MagneticButton>
 
-          <MagneticButton variant="outline">
-            Download Resume <Download className="w-4 h-4" />
+          <MagneticButton
+            variant="outline"
+            onClick={() => window.open("https://docs.google.com/document/d/12whRIH06MK9jQvjJKVSNuSocF8AQn4j3u-Fk6b472e8/edit?tab=t.0", "_blank", "noopener,noreferrer")}
+          >
+            View Resume <FileText className="w-4 h-4" />
           </MagneticButton>
         </motion.div>
       </div>
